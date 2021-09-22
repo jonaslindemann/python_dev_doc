@@ -85,7 +85,77 @@ An environment can be deactivate by using the **conda deactivate** command:
     (calfem-test) $ conda deactivate
     (base) $
 
-No environment name is required for deactivating an environment.
+No environment name is required for deactivating an environment. 
+
+Removing an environment
+-----------------------
+
+Removing a created environment is done using the **conda env remove** command:
+
+conda env remove -n calfem-test
+
+Remove all packages in environment e:\anaconda3\envs\calfem-test:
+
+.. code-block:: bash
+
+    (base) $ conda remove -n calfem-test
+
+    Remove all packages in environment e:\anaconda3\envs\calfem-test:
+    ...
+
+Cloning an existing environment
+-------------------------------
+
+An exact copy of an existing environment can be created using the **--clone** option:
+
+.. code-block:: bash
+
+    (base) $ conda create -n calfem-dev-2 --clone calfem-test
+    Source:      e:\anaconda3\envs\calfem-dev
+    Destination: e:\anaconda3\envs\calfem-dev-2
+    Packages: 158
+    Files: 13121
 
 Exporting an Anaconda environment
 ---------------------------------
+
+You can list all packages and their versions using the **conda list** command:
+
+.. code-block:: bash
+
+    (base) $ conda list calfem-dev --explicit
+    # This file may be used to create an environment using:
+    # $ conda create --name <env> --file <this file>
+    # platform: win-64
+    @EXPLICIT
+    https://repo.anaconda.com/pkgs/main/win-64/ca-certificates-2021.7.5-haa95532_1.conda
+    https://repo.anaconda.com/pkgs/main/noarch/tzdata-2021a-h5d7bf9c_0.conda
+    https://repo.anaconda.com/pkgs/main/noarch/pyopenssl-20.0.1-pyhd3eb1b0_1.conda
+    ...
+    https://repo.anaconda.com/pkgs/main/noarch/urllib3-1.26.6-pyhd3eb1b0_1.conda
+    https://repo.anaconda.com/pkgs/main/noarch/requests-2.26.0-pyhd3eb1b0_0.conda
+    https://repo.anaconda.com/pkgs/main/noarch/sphinx-4.0.2-pyhd3eb1b0_0.conda
+
+This list can also be saved to a file that then can be used to recreate the environment.
+
+.. code-block:: bash
+
+    (base) $ conda list calfem-dev --explicit > spec-file.txt
+
+Using this file it is now possible to create an environmnet with the exact set of packages.
+
+.. code-block:: bash
+
+    (base) conda create --name calfem-dev-3 --file spec-file.txt
+    Preparing transaction: done
+    Verifying transaction: done
+    Executing transaction:
+    ...
+
+Conda and pip
+-------------
+
+Pip can be used to install software in a conda environment. However, package information for Pip-packages are not exported using the **conda list** command. Pip-packages must be handled separately for example using the **pip freeze** command. 
+
+If possible it is always better to use the packages that are available in the conda repositories instead of using packages from the pip-package repository.
+
