@@ -159,3 +159,24 @@ Pip can be used to install software in a conda environment. However, package inf
 
 If possible it is always better to use the packages that are available in the conda repositories instead of using packages from the pip-package repository.
 
+Using conda environments in Jupyter Notebooks
+---------------------------------------------
+
+If you want to use a conda environment in a Jupyter Notebook it has to be added to the list of availble kernels. This can be done by using the **ipykernel** package. This package is installed with the following commands:
+
+.. code-block:: bash
+
+    (base) $ conda activate your-environment
+    (your-environment) $ conda install ipykernel
+    (base) $ conda deactivate
+
+It is now possible to switch environment from within a jupyter-notebook started from the base-environment:
+
+.. code-block:: bash
+
+    (base) $ jupyter-notebook
+
+It is now possible to create a new notebook using the environment by selecting **New / Python [conda env:your-environment]**
+
+
+
